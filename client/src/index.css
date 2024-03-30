@@ -1,0 +1,46 @@
+/* src/styles.css */
+
+::-webkit-scrollbar{
+    width: 3px;
+}
+::-webkit-scrollbar-track{
+    background-color: var(--scrollbar-bg-color);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: 3px;
+}
+
+.typewriter{
+    border-right: .15em solid #292f35;
+    animation: 
+      typing 2s steps(20, end),
+      blink-caret .5s step-end infinite;
+}
+  
+/* The typing effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 30% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #292f35; }
+}
+html[data-theme='light']{
+    background-color: #FAF9F6;
+    --scrollbar-bg-color: #bed1ff6c;
+    --scrollbar-thumb-colorl: #97c6ff;
+}
+html[data-theme='dark']{
+    background-color: #111215;
+    --scrollbar-bg-color: #0f172a84;
+    --scrollbar-thumb-color: #4f4f4fd6;
+}
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
