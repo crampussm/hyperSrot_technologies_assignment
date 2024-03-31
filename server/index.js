@@ -9,6 +9,8 @@ let tasks = [];
 let spaces = [];
 let users = [];
 var GLOBAL_ID = 0;
+
+// function to get task by task id
 const getTask = (taskid)=>{
     for(let task of tasks){
         if(task.taskid == taskid){
@@ -16,6 +18,8 @@ const getTask = (taskid)=>{
         }
     }
 }
+
+// function to get space by spacename
 const getSpace = (spacename)=>{
     for(let space of spaces){
         if(space.spacename == spacename){
@@ -23,6 +27,8 @@ const getSpace = (spacename)=>{
         }
     }
 }
+
+// function to verify if the task bleongs to a specific user and space
 const verifyTaskname = (taskname, username, spacename)=>{
     for(let task of tasks){
         if(task.taskname == taskname && task.username == username && task.taskSpace == spacename){
@@ -35,7 +41,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
+// Login method
 app.post('/createorlogin', (req, res)=>{
     let success = false;
     try {
@@ -57,6 +63,7 @@ app.post('/createorlogin', (req, res)=>{
     }
 });
 
+// Method to create task
 app.post('/createTask', getUser, (req, res)=>{
     let success = false;
     try {
@@ -93,6 +100,7 @@ app.post('/createTask', getUser, (req, res)=>{
     }
 });
 
+// Method to update tasks
 app.put('/updateTask/:taskid', getUser, (req, res)=>{
     let success = false;
     try {
@@ -113,6 +121,7 @@ app.put('/updateTask/:taskid', getUser, (req, res)=>{
     }
 });
 
+// Method to delete task
 app.delete('/deleteTask/:taskid', getUser, (req, res)=>{
     let success = false;
     try {
@@ -137,6 +146,7 @@ app.delete('/deleteTask/:taskid', getUser, (req, res)=>{
     }
 });
 
+// Method to get all tasks
 app.get('/getallTasks/:spacename', getUser, (req, res)=>{
     let success = false;
     try {
@@ -154,6 +164,7 @@ app.get('/getallTasks/:spacename', getUser, (req, res)=>{
     }
 });
 
+// Method to create Space
 app.post('/createSpace', getUser, (req, res)=>{
     let success = false;
     try {
@@ -176,6 +187,7 @@ app.post('/createSpace', getUser, (req, res)=>{
     }
 });
 
+// Method to get all spaces
 app.get('/getallSpaces', getUser, (req, res)=>{
     let success = false;
     try {
@@ -192,6 +204,7 @@ app.get('/getallSpaces', getUser, (req, res)=>{
     }
 });
 
+// Method to delete space
 app.delete('/deleteSpace', (req, res)=>{
     let success = false;
     try {

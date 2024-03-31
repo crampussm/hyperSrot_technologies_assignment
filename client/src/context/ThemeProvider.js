@@ -30,6 +30,7 @@ export const AppProvider = (props) => {
   const [spaceActions, setSpaceActions] = useState(false);
   const [taskNameErrMsg, settaskNameErrMsg] = useState('');
   
+  // Handling all pop ups
   const popCreateSpace = () => {
     if(createSpacePop){
       setCreateSpacePop(false);
@@ -73,6 +74,8 @@ export const AppProvider = (props) => {
         setSpaceActions(true);
       }
   }
+
+  // Handling themes
   const toggleTheme = (mode)=>{
     console.log(mode);
     setTheme(mode);
@@ -82,6 +85,7 @@ export const AppProvider = (props) => {
   const sortByPriority = () => {
     return tasks.sort((a, b) => priorityValueMap.get(a.priority) - priorityValueMap.get(b.priority));
   }
+  // Handle sorting and filtering status
   const toggleSort = () => {
     if(sort){
       setSort(false);
@@ -100,6 +104,8 @@ export const AppProvider = (props) => {
   const removeFilter = () => {
     setIsFiltered(false);
   }
+
+  // API call to get all spaces
   const getSpaces = async()=>{
       const response = await fetch(`http://localhost:5000/getallSpaces`, {
           method: "GET",
@@ -120,6 +126,8 @@ export const AppProvider = (props) => {
           console.log('failed to fetch spaces');
       }
   }
+
+  // API call to create space
   const createSpace = async(spacename) => {
       const response = await fetch(`http://localhost:5000/createSpace`, {
           method: "POST",
@@ -142,6 +150,8 @@ export const AppProvider = (props) => {
           console.log('failed to create space');
       }
   }
+
+  // API call to get all tasks
   const getAllTasks = async()=>{
       const response = await fetch(`http://localhost:5000/getallTasks/${selectedSpace[0]}`, {
           method: "GET",
@@ -163,6 +173,8 @@ export const AppProvider = (props) => {
           console.log('failed to fetch tasks');
       }
   }
+
+  // API call to create task
   const createTask = async(taskDetails)=> {
     const date = new Date();
 
@@ -204,6 +216,8 @@ export const AppProvider = (props) => {
         settaskNameErrMsg(json.error);
     }
   }
+
+  // API call to update tasks
   const updateTask = async(taskDetails) => {
     const response = await fetch(`http://localhost:5000/updateTask/${selectedTask.taskid}`, {
         method: "PUT",
@@ -230,6 +244,8 @@ export const AppProvider = (props) => {
         console.log('failed to create task');
     }
   }
+
+  // API call to delete tasks
   const deleteTask = async() => {
     const response = await fetch(`http://localhost:5000/deleteTask/${selectedTask.taskid}`, {
         method: "DELETE",
@@ -252,6 +268,7 @@ export const AppProvider = (props) => {
         console.log('failed to create task');
     }
   }
+  // API call to delete spaces
   const deleteSpace = async(givenSpaceName) => {
     const response = await fetch(`http://localhost:5000/deleteSpace`, {
         method: "DELETE",
@@ -277,6 +294,7 @@ export const AppProvider = (props) => {
     }
   }
   useEffect(()=>{
+    sessionStorage.setItem('tmp-theme', 'light');
     const theme = sessionStorage.getItem('tmp-theme');
     setTheme(theme);
     document.documentElement.setAttribute('data-theme', theme);
